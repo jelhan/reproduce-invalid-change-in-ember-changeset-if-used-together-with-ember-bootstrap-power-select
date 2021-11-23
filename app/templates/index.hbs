@@ -1,0 +1,27 @@
+{{page-title "Index"}}
+
+<BsForm
+  @model={{changeset @model.post}}
+  @onSubmit={{this.handleSubmit}} as |form|
+>
+  <form.element
+    @label="Title"
+    @property="title"
+  />
+  <form.element
+    @controlType="power-select"
+    @label="Author"
+    @property="author"
+    @options={{@model.authors}}
+    as |el|
+  >
+    <el.control as |option|>
+      {{option.name}}
+    </el.control>
+  </form.element>
+  <form.submitButton>
+    submit
+  </form.submitButton>
+</BsForm>
+
+{{outlet}}
