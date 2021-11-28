@@ -1,6 +1,7 @@
 {{page-title 'Index'}}
 
-<h2>Ember Bootstrap + Ember Bootstrap Power Select + Ember Changeset</h2>
+<h2>Ember Changeset + Ember Bootstrap + Ember Bootstrap Power Select + Ember
+  Data</h2>
 
 <BsForm
   @model={{changeset @model.post}}
@@ -24,7 +25,7 @@
   </form.submitButton>
 </BsForm>
 
-<h2>Ember Bootstrap + native Ember Power Select + Ember Changeset</h2>
+<h2>Ember Changeset + Ember Bootstrap + native Ember Power Select + Ember Data</h2>
 
 <BsForm
   @model={{changeset @model.post}}
@@ -47,19 +48,22 @@
   </form.submitButton>
 </BsForm>
 
-<h2>Ember Power Select + Ember Changeset without Ember Bootstrap</h2>
+<h2>Ember Changeset + Ember Power Select + Ember Data (without Ember Bootstrap)</h2>
 
 {{#let (changeset @model.post) as |changeset|}}
-  <form {{on 'submit' (fn this.handleSubmit changeset)}}>
+  <form
+    {{on 'submit' (fn this.handleSubmit changeset)}}
+    aria-label='Ember Changeset and Ember Power Select and Ember Data'
+  >
     <div class='form-group'>
       <label for='title-input'>Title</label>
-      <Input @value={{changeset.title}} id='title-input' class="form-control" />
+      <Input @value={{changeset.title}} id='title-input' class='form-control' />
     </div>
     <div class='form-group'>
       <label for='author-selection'>Author</label>
       <PowerSelect
         @options={{@model.authors}}
-        @onChange={{set changeset "author"}}
+        @onChange={{set changeset 'author'}}
         @selected={{changeset.author}}
         id='author-selection'
         as |option|
@@ -67,7 +71,72 @@
         {{option.name}}
       </PowerSelect>
     </div>
-    <button type="submit" class="btn btn-primary">
+    <button type='submit' class='btn btn-primary'>
+      submit
+    </button>
+  </form>
+{{/let}}
+
+<h2>Ember Changeset + Ember Power Select (without Ember Data or Ember Bootstrap)</h2>
+
+{{#let (changeset this.postWithoutEmberData) as |changeset|}}
+  <form
+    {{on 'submit' (fn this.handleSubmit changeset)}}
+    aria-label='Ember Changeset and Ember Power Select'
+  >
+    <div class='form-group'>
+      <label for='title-input-2'>Title</label>
+      <Input
+        @value={{changeset.title}}
+        id='title-input-2'
+        class='form-control'
+      />
+    </div>
+    <div class='form-group'>
+      <label for='author-selection-2'>Author</label>
+      <PowerSelect
+        @options={{this.authorsWithoutEmberData}}
+        @onChange={{set changeset 'author'}}
+        @selected={{changeset.author}}
+        id='author-selection-2'
+        as |option|
+      >
+        {{option.name}}
+      </PowerSelect>
+    </div>
+    <button type='submit' class='btn btn-primary'>
+      submit
+    </button>
+  </form>
+{{/let}}
+
+<h2>Ember Changeset with nested object, which is not mutated at all</h2>
+
+{{#let (changeset this.postWithoutEmberData) as |changeset|}}
+  <form
+    {{on 'submit' (fn this.handleSubmit changeset)}}
+    aria-label='Ember Changeset with nested object'
+  >
+    <div class='form-group'>
+      <label for='title-input-3'>Title</label>
+      <Input
+        @value={{changeset.title}}
+        id='title-input-3'
+        class='form-control'
+      />
+    </div>
+    <div class='form-group'>
+      <label for='author-selection-3'>Author</label>
+      <select id="author-selection-3">
+        <option>Please select an author</option>
+        {{#each this.authorsWithoutEmberData as |author|}}
+          <option selected={{eq changeset.author.name author.name}}>
+            {{author.name}}
+          </option>
+        {{/each}}
+      </select>
+    </div>
+    <button type='submit' class='btn btn-primary'>
       submit
     </button>
   </form>
