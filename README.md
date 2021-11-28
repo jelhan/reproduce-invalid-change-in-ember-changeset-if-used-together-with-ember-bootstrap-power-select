@@ -1,4 +1,4 @@
-# test-app
+# reproduce-invalid-change-in-ember-changeset-if-used-together-with-ember-bootstrap-power-select
 
 This README outlines the details of collaborating on this Ember application.
 A short introduction of this app could easily go here.
@@ -16,7 +16,7 @@ You will need the following things properly installed on your computer.
 ## Installation
 
 * `git clone <repository-url>` this repository
-* `cd test-app`
+* `cd reproduce-invalid-change-in-ember-changeset-if-used-together-with-ember-bootstrap-power-select`
 * `yarn install`
 
 ## Running / Development

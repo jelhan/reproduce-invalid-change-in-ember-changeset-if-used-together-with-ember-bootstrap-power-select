@@ -1,17 +1,17 @@
-{{page-title "Index"}}
+{{page-title 'Index'}}
+
+<h2>Ember Bootstrap + Ember Bootstrap Power Select + Ember Changeset</h2>
 
 <BsForm
   @model={{changeset @model.post}}
-  @onSubmit={{this.handleSubmit}} as |form|
+  @onSubmit={{this.handleSubmit}}
+  as |form|
 >
+  <form.element @label='Title' @property='title' />
   <form.element
-    @label="Title"
-    @property="title"
-  />
-  <form.element
-    @controlType="power-select"
-    @label="Author"
-    @property="author"
+    @controlType='power-select'
+    @label='Author'
+    @property='author'
     @options={{@model.authors}}
     as |el|
   >
@@ -23,5 +23,54 @@
     submit
   </form.submitButton>
 </BsForm>
+
+<h2>Ember Bootstrap + native Ember Power Select + Ember Changeset</h2>
+
+<BsForm
+  @model={{changeset @model.post}}
+  @onSubmit={{this.handleSubmit}}
+  as |form|
+>
+  <form.element @label='Title' @property='title' />
+  <form.element @label='Author' @property='author' as |el|>
+    <PowerSelect
+      @options={{@model.authors}}
+      @onChange={{el.setValue}}
+      @selected={{el.value}}
+      as |option|
+    >
+      {{option.name}}
+    </PowerSelect>
+  </form.element>
+  <form.submitButton>
+    submit
+  </form.submitButton>
+</BsForm>
+
+<h2>Ember Power Select + Ember Changeset without Ember Bootstrap</h2>
+
+{{#let (changeset @model.post) as |changeset|}}
+  <form {{on 'submit' (fn this.handleSubmit changeset)}}>
+    <div class='form-group'>
+      <label for='title-input'>Title</label>
+      <Input @value={{changeset.title}} id='title-input' class="form-control" />
+    </div>
+    <div class='form-group'>
+      <label for='author-selection'>Author</label>
+      <PowerSelect
+        @options={{@model.authors}}
+        @onChange={{set changeset "author"}}
+        @selected={{changeset.author}}
+        id='author-selection'
+        as |option|
+      >
+        {{option.name}}
+      </PowerSelect>
+    </div>
+    <button type="submit" class="btn btn-primary">
+      submit
+    </button>
+  </form>
+{{/let}}
 
 {{outlet}}

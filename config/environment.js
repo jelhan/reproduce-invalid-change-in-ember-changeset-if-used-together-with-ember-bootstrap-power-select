@@ -2,7 +2,8 @@
 
 module.exports = function (environment) {
   let ENV = {
-    modulePrefix: 'test-app',
+    modulePrefix:
+      'reproduce-invalid-change-in-ember-changeset-if-used-together-with-ember-bootstrap-power-select',
     environment,
     rootURL: '/',
     locationType: 'auto',
